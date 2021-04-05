@@ -6,9 +6,17 @@ class Guerrier(Personne):
     Classe qui definie un guerrier, classe fille de 'Personne'
     """
 
-    def __init__(self, att_epee):
+    def __init__(self, name):
         """ initialisation d'un guerrier"""
-        self.att_epee = 10
+        super().__init__(
+            name,
+            random.randrange(150, 250),
+            random.randrange(15, 25),
+            random.randrange(10, 15),
+            random.randrange(100, 150),
+            random.randrange(100, 150),
+            random.randrange(10, 20),
+        )
 
 
 def main():
