@@ -15,14 +15,16 @@ class Personne:
         self.attaque = attaque
         self.defense = defense
         self.mana = mana
+        self.degats = self.attaques()
+        self.protection = self.protections()
 
     def presentation(self):
         """ presentation du nouveau personnage"""
         print(
             f"Nom: {self.name}, Points de vie: {self.pdv}, Force: {self.force}, Intelligence: {self.intel},\
- Attaque: {self.attaque}, Defense: {self.defense}, Mana: {self.mana}"
+ Attaque: {self.attaque}, Defense: {self.defense}, Mana: {self.mana}, Dégats: {self.degats}, Protection:{self.protection}"
         )
-    
+
 
 class Guerrier(Personne):
     """
@@ -41,6 +43,16 @@ class Guerrier(Personne):
             random.randrange(10, 20),
         )
 
+    def attaques(self):
+        """ fonction attaque """
+        degats = self.attaque + self.force
+        return degats
+
+    def protections(self):
+        """ fonction protection"""
+        protec = self.defense + self.force
+        return protec
+
 
 class Mage(Personne):
     """
@@ -58,6 +70,16 @@ class Mage(Personne):
             random.randrange(100, 150),
             random.randrange(150, 250),
         )
+
+    def attaques(self):
+        """ fonction attaque """
+        degats = self.mana + self.intel
+        return degats
+
+    def protections(self):
+        """ fonction protection"""
+        protec = self.defense + self.intel
+        return protec
 
 
 def main():
