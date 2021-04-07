@@ -8,7 +8,8 @@ class Guerrier(Personne):
 
     def __init__(self, name):
         """ initialisation d'un guerrier"""
-        super().__init__(
+        Personne.__init__(
+            self,
             name,
             random.randrange(150, 250),
             random.randrange(15, 25),
@@ -18,6 +19,19 @@ class Guerrier(Personne):
             random.randrange(10, 20),
         )
 
+    def degats(self):
+        """ fonction attaque """
+        degats = self.attaque + self.force
+        return degats
+
+    def protections(self):
+        """ fonction protection"""
+        protec = self.defense + self.force
+        return protec
+
+    def sword(self):
+        """ coup d'épée """
+        return
 
 def main():
     """ doc"""
