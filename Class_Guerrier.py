@@ -1,3 +1,4 @@
+import random
 from .Class_perso import Personne
 
 
