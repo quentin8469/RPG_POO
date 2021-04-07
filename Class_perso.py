@@ -3,31 +3,21 @@ class Personne:
     def de la class perso general
     """
 
-    def __init__(self, name, pdv, force, intel):
+    def __init__(self, name, pdv, force, intel, attaque, defense, mana):
         """ initialisation d'une personne """
         self.name = name
         self.pdv = pdv
         self.force = force
         self.intel = intel
-        self.attaque = 10
-        self.defense = 10
-        self.mana = 10
+        self.attaque = attaque
+        self.defense = defense
+        self.mana = mana
+        self.degat = self.degats()
+        self.protection = self.protections()
 
-
-def main():
-    """ doc"""
-    perso = Personne(
-        "polo",
-        100,
-        12,
-        14,
-    )
-    # print("Nom:" + {}, "pdv:" + {}.format(perso.name, perso.pdv))
-    # f"{perso.name}, {perso.pdv}, {perso.force}, {perso.intel}"
-    return print(
-        f"Nom: {perso.name}, Points de vie: {perso.pdv}, Force: {perso.force}, Intelligence: {perso.intel}, Attaque: {perso.attaque}, Defense: {perso.defense}, Mana: {perso.mana}"
-    )
-
-
-if __name__ == "__main__":
-    main()
+    def presentation(self):
+        """ presentation du nouveau personnage"""
+        print(
+            f"Nom: {self.name}, Points de vie: {self.pdv}, Force: {self.force}, Intelligence: {self.intel},\
+ Attaque: {self.attaque}, Defense: {self.defense}, Mana: {self.mana}, Dégats: {self.degat}, Protection:{self.protection}"
+        )
