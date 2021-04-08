@@ -17,6 +17,7 @@ class Personne:
         self.attaque = attaque + random.randrange(10, 50)
         self.defense = defense + random.randrange(10, 50)
         self.mana = mana + random.randrange(50, 100)
+        self.intiative = random.randrange(1, 10)
         self.degat = self.degats()
         self.protection = self.protections()
 
@@ -24,7 +25,7 @@ class Personne:
         """ presentation du nouveau personnage"""
         print(
             f"Nom: {self.name}, Classe: {self.prof}, Points de vie: {self.pdv}, Force: {self.force}, Intelligence: {self.intel},\
- Attaque: {self.attaque}, Defense: {self.defense}, Mana: {self.mana}, Dégats: {self.degat}, Protection:{self.protection}"
+Attaque: {self.attaque}, Defense: {self.defense}, Mana: {self.mana}, Dégats: {self.degat}, Protection:{self.protection}"
         )
 
     def degats(self):
@@ -35,6 +36,8 @@ class Personne:
         if self.prof == "Mage":
             degats = self.mana + self.intel
             return degats
+        else:
+            return self.force
 
     def protections(self):
         """ fonction protection"""
@@ -44,6 +47,14 @@ class Personne:
         if self.prof == "Mage":
             protec = self.defense + self.intel
             return protec
+        else:
+            return " néant"
+
+    def attaque(self):
+        """ doc string"""
+
+        cible.pdv = self.cible.pdv - self.degat
+        return print(f"{self.cible.name} à perdu {self.cible.pdv} points de vie")
 
 
 class Guerrier(Personne):
@@ -106,10 +117,8 @@ class Tournoi:
 
     def calcul_initiative(self):
         """ definition de l'initiative """
-        self.init_joueur1 = random.randrange(1, 10)
-        self.init_joueur2 = random.randrange(1, 10)
 
-        if self.init_joueur1 > self.init_joueur2:
+        if self.joueur1 > self.joueur2:
             return print(
                 f"{self.joueur1.name} attaque en premier avec une init de {self.init_joueur1}"
             )
@@ -127,25 +136,33 @@ class Tournoi:
 
     def bagarre(self):
         """ docstring """
+        if self.joueur1.intiative > self.joueur2.intiative:
+            self.joueur2.pdv = self.joueur2.pdv - self.joueur1.degat
+            return print(
+                f"{self.joueur2.name} à perdu {self.joueur1.degat} points de vie, il lui reste {self.joueur2.pdv} point de vie"
+            )
+        elif self.joueur2.intiative > self.joueur1.intiative:
+            self.joueur1.pdv = self.joueur1.pdv - self.joueur2.degat
+            return print(
+                f"{self.joueur1.name} à perdu {self.joueur2.degat} points de vie, il lui reste {self.joueur1.pdv} point de vie"
+            )
+            return print("pas bob")
 
 
 def main():
     """ doc """
-    print("Nos combattants et leurs statistiques")
-    paysan = Personne("pelo", "Paysan", 0, 0, 0, 0, 0, 0)
-    guerrier_01 = Guerrier("Bryan")
-    mage_01 = Mage("Jojo")
-    debut_du_tournoi = Tournoi()
-
-    return (
-        paysan.presentation(),
-        guerrier_01.presentation(),
-        mage_01.presentation(),
-        debut_du_tournoi.entre_dans_arene(mage_01, guerrier_01),
-        debut_du_tournoi.calcul_initiative(),
-        debut_du_tournoi.debut_du_combat(),
-    )
+    return
 
 
 if __name__ == "__main__":
-    main()
+    print("Nos combattants et leurs statistiques")
+    # paysan = Personne("pelo", "Paysan", 0, 0, 0, 0, 0, 0)
+    guerrier = Guerrier("Bryan")
+    mage = Mage("Jojo")
+    # paysan.presentation()
+    guerrier.presentation()
+    mage.presentation()
+    debut = Tournoi()
+    debut.entre_dans_arene(mage, guerrier)
+    debut.debut_du_combat()
+    debut.bagarre()
