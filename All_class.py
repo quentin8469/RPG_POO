@@ -11,7 +11,7 @@ class Personne:
 
         self.name = name
         self.prof = prof
-        self.pdv = pdv + random.randrange(50, 100)
+        self.pdv = pdv + random.randrange(2000, 5000)
         self.force = force + random.randrange(5, 10)
         self.intel = intel + random.randrange(5, 10)
         self.attaque = attaque + random.randrange(10, 50)
@@ -130,7 +130,12 @@ class Tournoi:
 
     def bagarre(self):
         """ docstring """
+        if self.joueur1.intiative == self.joueur2.intiative:
+            self.joueur1.intiative = random.randrange(1, 10)
+            self.joueur2.intiative = random.randrange(1, 10)
+
         while self.joueur1.pdv > 0 and self.joueur2.pdv > 0:
+
             if self.joueur1.intiative > self.joueur2.intiative:
                 self.joueur2.pdv = self.joueur2.pdv - self.joueur1.degat
                 if self.joueur2.pdv < 0:
@@ -151,6 +156,7 @@ class Tournoi:
                     print(
                         f"{self.joueur2.name} fait {self.joueur2.degat} de dégats à {self.joueur1.name} qui se protege de {self.joueur1.protection} et prend {self.joueur2.degat} de dégats , il lui reste {self.joueur1.pdv} point de vie"
                     )
+        print("Le combat est fini")
 
 
 def main():
