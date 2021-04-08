@@ -50,12 +50,6 @@ Attaque: {self.attaque}, Defense: {self.defense}, Mana: {self.mana}, Dégats: {s
         else:
             return " néant"
 
-    def attaque(self):
-        """ doc string"""
-
-        cible.pdv = self.cible.pdv - self.degat
-        return print(f"{self.cible.name} à perdu {self.cible.pdv} points de vie")
-
 
 class Guerrier(Personne):
     """
@@ -136,17 +130,27 @@ class Tournoi:
 
     def bagarre(self):
         """ docstring """
-        if self.joueur1.intiative > self.joueur2.intiative:
-            self.joueur2.pdv = self.joueur2.pdv - self.joueur1.degat
-            return print(
-                f"{self.joueur2.name} à perdu {self.joueur1.degat} points de vie, il lui reste {self.joueur2.pdv} point de vie"
-            )
-        elif self.joueur2.intiative > self.joueur1.intiative:
-            self.joueur1.pdv = self.joueur1.pdv - self.joueur2.degat
-            return print(
-                f"{self.joueur1.name} à perdu {self.joueur2.degat} points de vie, il lui reste {self.joueur1.pdv} point de vie"
-            )
-            return print("pas bob")
+        while self.joueur1.pdv > 0 and self.joueur2.pdv > 0:
+            if self.joueur1.intiative > self.joueur2.intiative:
+                self.joueur2.pdv = self.joueur2.pdv - self.joueur1.degat
+                if self.joueur2.pdv < 0:
+                    print(
+                        f"{self.joueur1.name} d'un coup d'une violence terrible tranche la tete de {self.joueur2.name}"
+                    )
+                else:
+                    print(
+                        f"{self.joueur1.name} fait {self.joueur1.degat} de dégats à {self.joueur2.name} qui se protege de {self.joueur2.protection} et prend {self.joueur1.degat} de dégats , il lui reste {self.joueur2.pdv} point de vie"
+                    )
+            elif self.joueur2.intiative > self.joueur1.intiative:
+                self.joueur1.pdv = self.joueur1.pdv - self.joueur2.degat
+                if self.joueur1.pdv < 0:
+                    print(
+                        f"Le terrible coup de {self.joueur2.name} arrache son dernier souffle à {self.joueur1.name}"
+                    )
+                else:
+                    print(
+                        f"{self.joueur2.name} fait {self.joueur2.degat} de dégats à {self.joueur1.name} qui se protege de {self.joueur1.protection} et prend {self.joueur2.degat} de dégats , il lui reste {self.joueur1.pdv} point de vie"
+                    )
 
 
 def main():
