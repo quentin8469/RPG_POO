@@ -6,9 +6,10 @@ class Personne:
     def de la class perso general
     """
 
-    def __init__(self, name, pdv, force, intel, attaque, defense, mana):
+    def __init__(self, name, prof, pdv, force, intel, attaque, defense, mana):
         """ initialisation d'une personne """
         self.name = name
+        self.prof = prof
         self.pdv = pdv
         self.force = force
         self.intel = intel
@@ -21,9 +22,27 @@ class Personne:
     def presentation(self):
         """ presentation du nouveau personnage"""
         print(
-            f"Nom: {self.name}, Points de vie: {self.pdv}, Force: {self.force}, Intelligence: {self.intel},\
+            f"Nom: {self.name}, Classe: {self.prof}, Points de vie: {self.pdv}, Force: {self.force}, Intelligence: {self.intel},\
  Attaque: {self.attaque}, Defense: {self.defense}, Mana: {self.mana}, Dégats: {self.degat}, Protection:{self.protection}"
         )
+    
+    def degats(self):
+        """ docstring"""
+        if self.prof == "Guerrier":
+            degats = self.attaque + self.force
+            return degats
+        if self.prof == "Mage":
+            degats = self.mana + self.intel
+            return degats
+
+    def protections(self):
+        """ fonction protection"""
+        if self.prof == "Guerrier":
+            protec = self.defense + self.force
+            return protec
+        if self.prof == "Mage":
+            protec = self.defense + self.intel
+            return protec
 
 
 class Guerrier(Personne):
@@ -36,6 +55,7 @@ class Guerrier(Personne):
         Personne.__init__(
             self,
             name,
+            "Guerrier",
             random.randrange(150, 250),
             random.randrange(15, 25),
             random.randrange(10, 15),
@@ -43,16 +63,8 @@ class Guerrier(Personne):
             random.randrange(100, 150),
             random.randrange(10, 20),
         )
-
-    def degats(self):
-        """ fonction attaque """
-        degats = self.attaque + self.force
-        return degats
-
-    def protections(self):
-        """ fonction protection"""
-        protec = self.defense + self.force
-        return protec
+    
+    
 
     def sword(self):
         """ coup d'épée """
@@ -68,7 +80,8 @@ class Mage(Personne):
         """ initialisation d'un Mage"""
         Personne.__init__(
             self,
-            name,
+            name, 
+            "Mage",
             random.randrange(100, 150),
             random.randrange(10, 15),
             random.randrange(15, 25),
@@ -77,15 +90,6 @@ class Mage(Personne):
             random.randrange(150, 250),
         )
 
-    def degats(self):
-        """ fonction attaque """
-        degats = self.mana + self.intel
-        return degats
-
-    def protections(self):
-        """ fonction protection"""
-        protec = self.defense + self.intel
-        return protec
 
     def Boule_de_feu(self):
         """ lance boule de feu """
@@ -99,15 +103,15 @@ class Tournoi:
 
     def __init__(self):
         """ initialisation du tournoi """
-        self.joueur1 = False
-        self.joueur2 = False
+        pass
+        
 
     def entre_dans_arene(self, joueur1, joueur2):
         """ debut du combat """
         self.joueur1 = joueur1
         self.joueur2 = joueur2
 
-        return print("les joueurs sont entrés dans l'arene pret à s'affronter")
+        return print(f"les combattants {self.joueur1.name} et {self.joueur2.name} sont entrés dans l'arene pret à s'affronter")
 
     def calcul_initiative(self):
         """ definition de l'initiative """
@@ -116,11 +120,11 @@ class Tournoi:
 
         if self.init_joueur1 > self.init_joueur2:
             return print(
-                f"Joueur 1 attaque en premier avec une init de {self.init_joueur1}"
+                f"{self.joueur1.name} attaque en premier avec une init de {self.init_joueur1}"
             )
         else:
             return print(
-                f"Joueur 2 attaque en premier avec une init de {self.init_joueur2}"
+                f"Joueur {self.joueur2.name} attaque en premier avec une init de {self.init_joueur2}"
             )
 
     def debut_combat(self):
@@ -131,7 +135,7 @@ class Tournoi:
 
 def main():
     """ doc """
-
+    print("Nos combattants et leurs statistiques")
     guerrier_01 = Guerrier("Bryan")
     mage_01 = Mage("jojo")
     bagarre = Tournoi()
